@@ -51,25 +51,24 @@ class TrainModel:
             stasiun_akhir = self.session.query(TrainSchedule).filter(and_(TrainSchedule.train_id==train.id, TrainSchedule.station==ke)).first()
             if stasiun_awal is not None and stasiun_akhir is not None:
                 if stasiun_awal.departure <= stasiun_akhir.arrival:
-                    continue
-                kereta.update({
-                    "id": train.id,
-                    "name": train.name,
-                    "name_code": train.name_code,
-                    "total_gerbong": train.total_gerbong,
-                    "total_chair": train.total_chair,
-                    "stasiun_awal": {
-                        "id": stasiun_awal.id,
-                        "name": stasiun_awal.station,
-                        "arrival": stasiun_awal.arrival.strftime("%H:%M"),
-                        "departure": stasiun_awal.departure.strftime("%H:%M")
-                    },
-                    "stasiun_akhir": {
-                        "id": stasiun_akhir.id,
-                        "name": stasiun_akhir.station,
-                        "arrival": stasiun_akhir.arrival.strftime("%H:%M"),
-                        "departure": stasiun_akhir.departure.strftime("%H:%M")
-                    }
-                })
-                schedules.append(kereta)
+                    kereta.update({
+                        "id": train.id,
+                        "name": train.name,
+                        "name_code": train.name_code,
+                        "total_gerbong": train.total_gerbong,
+                        "total_chair": train.total_chair,
+                        "stasiun_awal": {
+                            "id": stasiun_awal.id,
+                            "name": stasiun_awal.station,
+                            "arrival": stasiun_awal.arrival.strftime("%H:%M"),
+                            "departure": stasiun_awal.departure.strftime("%H:%M")
+                        },
+                        "stasiun_akhir": {
+                            "id": stasiun_akhir.id,
+                            "name": stasiun_akhir.station,
+                            "arrival": stasiun_akhir.arrival.strftime("%H:%M"),
+                            "departure": stasiun_akhir.departure.strftime("%H:%M")
+                        }
+                    })
+                    schedules.append(kereta)
         return schedules
