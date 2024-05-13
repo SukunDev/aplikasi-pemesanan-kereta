@@ -19,6 +19,7 @@ class ChooseChairController:
         self.model.action.add_event_listener("actions", self.action_state_listener)
 
     def _bind(self):
+        self.frame.header_label.configure(text=f"PILIH KURSI GERBONG {self.current_pos}")
         self.frame.add_kursi(total_chair=self.total_chair)
         self.frame.next_button.configure(command=self.next_button)
         self.frame.prev_button.configure(command=self.prev_button)
@@ -27,6 +28,7 @@ class ChooseChairController:
             self.frame.choose_chair_btn[loop_index].configure(text=f"{chr(ord('a') + self.current_pos - 1).upper()}{loop_index+1}", command=choose_btn_callback)
     
     def _update_view(self):
+        self.frame.header_label.configure(text=f"PILIH KURSI GERBONG {self.current_pos}")
         for loop_index in range(len(self.frame.choose_chair_btn)):
             self.frame.choose_chair_btn[loop_index].configure(text=f"{chr(ord('a') + self.current_pos - 1).upper()}{loop_index+1}")
 
