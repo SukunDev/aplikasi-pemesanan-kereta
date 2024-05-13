@@ -6,6 +6,7 @@ from models.user import User, Base as userBase
 from models.user_schedule import UserSchedule, Base as userScheduleBase
 from models.train import Train, Base as trainBase
 from models.train_schedule import TrainSchedule, Base as trainScheduleBase
+from models.action import Action, Base as actionBase
 
 # Buat engine SQLAlchemy
 engine = create_engine('sqlite:///database.db')
@@ -15,6 +16,7 @@ userBase.metadata.create_all(engine)
 userScheduleBase.metadata.create_all(engine)
 trainBase.metadata.create_all(engine)
 trainScheduleBase.metadata.create_all(engine)
+actionBase.metadata.create_all(engine)
 
 # Buat SessionMaker
 Session = sessionmaker(bind=engine)
@@ -527,6 +529,10 @@ def parse_time(time_str):
     except Exception as e:
         return None
 
+def empty_action():
+    # Kosongkang Database
+    session.query(Action).delete()
+    session.commit()
 
 def seed_user():
     # Kosongkang Database
@@ -564,6 +570,7 @@ def seed_train():
 
 
 # Panggil fungsi seed_data untuk menambahkan data ke dalam tabel
+empty_action()
 seed_user()
 seed_train()
 
