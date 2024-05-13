@@ -56,12 +56,8 @@ class Controller:
 
     def start(self) -> None:
         # Here, you can do operations required before launching the gui, for example,
-        # TODO: hilankan
         if self.model.userModel.is_logged_in:
             self.view.switch("home")
         else:
             self.view.switch("signin")
-
-        # TODO: bypass
-        # self.view.switch("payments")
         self.view.start_mainloop()
