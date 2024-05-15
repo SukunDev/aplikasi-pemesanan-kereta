@@ -33,3 +33,5 @@ class SignUpView(customtkinter.CTkFrame):
 
         self.signin_btn = customtkinter.CTkButton(self, text="Sign In", fg_color="white", bg_color="transparent", hover_color="grey", text_color="black", corner_radius=0)
         self.signin_btn.place(x=200, y=380)
+        self.signup_btn = customtkinter.CTkButton(self, text="Sign Up", fg_color="white", bg_color="transparent", hover_color="grey", text_color="black", corner_radius=0)
+        self.signup_btn.place(x=355, y=380)
