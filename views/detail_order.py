@@ -44,3 +44,6 @@ class DetailOrderView(customtkinter.CTkFrame):
 
         self.next_btn = customtkinter.CTkButton(self, text="NEXT", font=('Segoe UI', 24, 'bold'), bg_color="white", fg_color="#0083B3", corner_radius=20)
         self.next_btn.place(x=750, y=420)
+
+        self.back_btn = customtkinter.CTkButton(self, text="BACK", font=('Segoe UI', 24, 'bold'), bg_color="white", fg_color="#0083B3", corner_radius=20)
+        self.back_btn.place(x=50, y=420)

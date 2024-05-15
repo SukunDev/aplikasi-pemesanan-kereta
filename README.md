@@ -7,7 +7,7 @@ git clone https://github.com/SukunDev/aplikasi-pemesanan-kereta.git
 cd aplikasi-pemesanan-kereta
 python -m venv .venv
 source .venv/scripts/activate
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Migrating Database

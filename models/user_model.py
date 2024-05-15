@@ -81,9 +81,9 @@ class UserModel(ObservableModel):
             except Exception as e:
                 print(e)
 
-    def get_user_schedule(self):
+    def get_user_schedule(self, user_id):
         data = None
-        for schedule in self.session.query(UserSchedule).filter_by(has_been_pay=False).all():
+        for schedule in self.session.query(UserSchedule).filter_by(has_been_pay=False, user_id=user_id).all():
             if datetime.now().date() <= schedule.created_at:
                 train = self.session.query(Train).filter_by(id=schedule.train_id).first()
                 stasiun_awal = self.session.query(TrainSchedule).filter_by(id=schedule.stasiun_awal_train_schedules_id).first()
@@ -111,6 +111,39 @@ class UserModel(ObservableModel):
                     "no_gerbong": schedule.no_gerbong,
                     "no_chair": schedule.no_chair
                 }
+        return data
+
+    def get_booking_schedule(self, booking_date, dari, ke):
+        data = []
+        for schedule in self.session.query(UserSchedule).filter_by(created_at=datetime.strptime(booking_date, '%B, %d %Y').date()).all():
+            train = self.session.query(Train).filter_by(id=schedule.train_id).first()
+            stasiun_awal = self.session.query(TrainSchedule).filter_by(id=schedule.stasiun_awal_train_schedules_id).first()
+            stasiun_akhir = self.session.query(TrainSchedule).filter_by(id=schedule.stasiun_akhir_train_schedules_id).first()
+            if dari == stasiun_awal.station and ke == stasiun_akhir.station:
+                data.append({
+                    "id": schedule.train_id,
+                    "schedule_id": schedule.id,
+                    "name": train.name,
+                    "name_code": train.name_code,
+                    "total_gerbong": train.total_gerbong,
+                    "total_chair": train.total_chair,
+                    "stasiun_awal": {
+                        "id": stasiun_awal.id,
+                        "name": stasiun_awal.station,
+                        "arrival": stasiun_awal.arrival.strftime("%H:%M"),
+                        "departure": stasiun_awal.departure.strftime("%H:%M")
+                    },
+                    "stasiun_akhir": {
+                        "id": stasiun_akhir.id,
+                        "name": stasiun_akhir.station,
+                        "arrival": stasiun_akhir.arrival.strftime("%H:%M"),
+                        "departure": stasiun_akhir.departure.strftime("%H:%M")
+                    },
+                    "booking_date": schedule.created_at.strftime("%B, %d %Y"),
+                    "no_gerbong": schedule.no_gerbong,
+                    "no_chair": schedule.no_chair
+                })
+                
         return data
 
     def update_schedule(self, schedule_id):

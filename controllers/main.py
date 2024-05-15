@@ -45,7 +45,7 @@ class Controller:
             if data.current_user['is_new_user']:
                 self.view.switch("welcome")
             else:
-                check_user_schedule = self.model.userModel.get_user_schedule()
+                check_user_schedule = self.model.userModel.get_user_schedule(user_id=self.model.userModel.current_user['id'])
                 if check_user_schedule is not None:
                     self.model.action.set(type="detail_order", data=check_user_schedule)
                     self.view.switch("detail_order")

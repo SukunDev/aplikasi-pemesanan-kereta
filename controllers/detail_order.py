@@ -16,6 +16,7 @@ class DetailOrderController:
 
     def _bind(self):
         self.frame.next_btn.configure(command=self.next_btn)
+        self.frame.back_btn.configure(command=self.back_btn)
 
     def action_state_listener(self, props: ActionModel) -> None:
         action = props.get()
@@ -32,5 +33,11 @@ class DetailOrderController:
                 
 
     def next_btn(self):
+        schedule_id = self.model.userModel.create_user_schedule(data=self.data, no_gerbong=self.data['no_gerbong'], no_chair=self.data['no_chair'])
+        self.data.update({"schedule_id": schedule_id})
         self.model.action.set(type="payments", data=self.data)
         self.view.switch("payments")
+    
+    def back_btn(self):
+        self.model.action.set(type="choose_chair", data=self.data)
+        self.view.switch("choose_chair")

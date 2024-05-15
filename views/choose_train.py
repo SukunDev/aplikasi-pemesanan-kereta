@@ -5,27 +5,24 @@ class ChooseTrainView(customtkinter.CTkFrame):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self.grid_columnconfigure(0, weight=0)
         self.grid_columnconfigure(1, weight=1)
-        self.grid_rowconfigure(1, weight=1)
-
-        self.frame = customtkinter.CTkScrollableFrame(self, fg_color="white")
-        self.frame.grid(row=0, column=0, rowspan=2, columnspan=2, sticky="nsew")
-
-        self.frame.grid_columnconfigure(0, weight=0)
-        self.frame.grid_columnconfigure(1, weight=1)
         
-        self.pilih_btn = []
 
-        self.header_label = customtkinter.CTkLabel(self.frame, text="PILIHAN KERETA", font=('Segoe UI', 32, 'bold'), width=340, text_color="black")
+        self.header_label = customtkinter.CTkLabel(self, text="PILIHAN KERETA", font=('Segoe UI', 32, 'bold'), width=340, text_color="black")
         self.header_label.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(0, 30))
 
+        self.back_btn = customtkinter.CTkButton(self, text="BACK", font=('Segoe UI', 20, 'bold'), bg_color="white", corner_radius=22)
+        self.back_btn.place(x=50, y=420)
+
+        self.frames = []
+        self.pilih_btn = []
 
     def add_schdule(self, trains):
-        
         loop_index = 1
         for train in trains:
-            frame = customtkinter.CTkFrame(self.frame, fg_color="#0083B3", bg_color="transparent", corner_radius=16)
-            frame.grid(row=loop_index, column=0, columnspan=2, sticky="ew", pady=(0, 10))
+            frame = customtkinter.CTkFrame(self, fg_color="#0083B3", bg_color="transparent", corner_radius=16)
+            frame.grid(row=loop_index, column=0, columnspan=2, sticky="ew", pady=(0, 10), padx=50)
             nama_train = customtkinter.CTkLabel(frame, text=train['name'], font=('Segoe UI', 18, 'bold'), text_color="white")
             nama_train.grid(row=0, column=0, sticky="w", padx=10, pady=(10, 0))
             name_code_train = customtkinter.CTkLabel(frame, text=f"({train['name_code']})", font=('Segoe UI', 16), text_color="white")
@@ -51,7 +48,15 @@ class ChooseTrainView(customtkinter.CTkFrame):
             stasiun_akhir = customtkinter.CTkLabel(stasiun_akhir_frame, text=f"{train['stasiun_akhir']['name']}", font=('Segoe UI', 16, 'bold'), text_color="white")
             stasiun_akhir.grid(row=0, column=2, sticky="w", padx=(10, 0))
 
-            self.pilih_btn.append(customtkinter.CTkButton(frame, text="PILIH"))
-            self.pilih_btn[loop_index - 1].grid(row=3, column=0, sticky="w", pady=(10, 10), padx=10)
+            pilih_btn = customtkinter.CTkButton(frame, text="PILIH")
+            pilih_btn.grid(row=3, column=0, sticky="w", pady=(10, 10), padx=10)
+            self.pilih_btn.append(pilih_btn)
+            self.frames.append(frame)
             
             loop_index += 1
+    
+    def clear_schedule(self):
+        for frame in self.frames:
+            frame.destroy()
+        self.frames = []
+        self.pilih_btn = []

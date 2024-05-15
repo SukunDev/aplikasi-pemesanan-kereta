@@ -34,6 +34,7 @@ class OderController:
         self.frame.tanggal_combobox.configure(command=self.tanggal_combobox, values=self.date_field)
         self.frame.add_penumpang_btn.configure(command=self.add_penumpang_btn)
         self.frame.next_btn.configure(command=self.next_btn)
+        self.frame.back_btn.configure(command=self.back_btn)
 
     def action_state_listener(self, props: ActionModel) -> None:
         action = props.get()
@@ -84,3 +85,6 @@ class OderController:
         else:
             self.model.action.set(type="choose_train", data=self.data)
             self.view.switch("choose_train")
+    
+    def back_btn(self):
+        self.view.switch("home")

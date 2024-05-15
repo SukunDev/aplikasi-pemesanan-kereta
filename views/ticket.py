@@ -25,3 +25,6 @@ class TicketView(customtkinter.CTkFrame):
         self.stasiun_akhir_label.grid(row=2, column=1, sticky="wn", pady=(3, 0))
         self.tempat_duduk_label = customtkinter.CTkLabel(self.detail_frame, text="", font=('Segoe UI', 18), text_color="white")
         self.tempat_duduk_label.grid(row=3, column=1, sticky="wn", pady=(3, 0))
+
+        self.home_btn = customtkinter.CTkButton(self, text="HOME", font=('Segoe UI', 20, 'bold'), bg_color="white", corner_radius=22)
+        self.home_btn.place(x=750, y=450)

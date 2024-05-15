@@ -66,3 +66,6 @@ class OrderView(customtkinter.CTkFrame):
 
         self.next_btn = customtkinter.CTkButton(self, text="NEXT", font=('Segoe UI', 20, 'bold'), bg_color="#005778", corner_radius=22)
         self.next_btn.place(x=745, y=425)
+
+        self.back_btn = customtkinter.CTkButton(self, text="BACK", font=('Segoe UI', 20, 'bold'), fg_color="white", hover_color="grey", bg_color="#005778",text_color="black", corner_radius=22)
+        self.back_btn.place(x=590, y=425)
